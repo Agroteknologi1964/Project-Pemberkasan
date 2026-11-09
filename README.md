@@ -1,3 +1,51 @@
+# Project Pemberkasan
+
+Aplikasi pemberkasan untuk mengelola folder dan berkas.
+
+- **Frontend:** React 19 + Material UI (`src/`)
+- **Backend:** Express + SQLite bawaan Node (`server/`)
+- **Login:** diverifikasi di server, sesi disimpan di cookie `httpOnly`, password di-hash bcrypt
+
+## Menjalankan di lokal (butuh Node >= 22.5)
+
+Butuh **dua terminal**.
+
+Terminal 1 — backend:
+```bash
+cd server
+npm install
+npm start          # http://localhost:4000
+```
+
+Terminal 2 — frontend:
+```bash
+npm install
+npm start          # http://localhost:3000 (CRA meneruskan /api ke port 4000)
+```
+
+Akun awal (dibuat otomatis saat database kosong):
+
+| Username | Password | Role |
+|---|---|---|
+| admin | Admin#2026 | admin |
+| budi | Budi#2026 | user |
+
+Ganti password ini sebelum dipakai sungguhan.
+
+## Build produksi (satu proses, satu domain)
+
+```bash
+npm run build            # hasilnya di build/
+cd server && npm start   # server menyajikan build/ + API sekaligus
+```
+
+## Konfigurasi
+
+Salin `server/.env.example` menjadi `server/.env`, lalu isi `JWT_SECRET`.
+Data tersimpan di `server/data/` (database `pemberkasan.db` + folder `uploads/`).
+
+---
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

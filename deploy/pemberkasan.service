@@ -1,0 +1,31 @@
+# Systemd unit untuk backend projectpemberkasan
+# Pasang:
+#   sudo cp deploy/pemberkasan.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now pemberkasan
+#   sudo journalctl -u pemberkasan -f      # lihat log
+#
+# Sesuaikan User, WorkingDirectory, dan path `node` bila berbeda
+# (cek dengan: which node).
+
+[Unit]
+Description=Project Pemberkasan API
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/var/www/pemberkasan/server
+Environment=NODE_ENV=production
+EnvironmentFile=/var/www/pemberkasan/server/.env
+ExecStart=/usr/bin/node index.js
+Restart=on-failure
+RestartSec=5
+# Batasi hak akses proses
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ReadWritePaths=/var/www/pemberkasan/server/data
+
+[Install]
+WantedBy=multi-user.target
